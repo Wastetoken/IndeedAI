@@ -1,13 +1,13 @@
 from openai import OpenAI
 
 class JobDescriptionWriter:
-    def __init__(self, ollama_base_url="http://localhost:11434/v1", model_name="llama2"):
+    def __init__(self, ollama_base_url="http://localhost:11434/v1", model_name="qwen3-vl:8b"):
         """
         Initialize the JobDescriptionWriter with Ollama.
         
         Args:
             ollama_base_url: The base URL for your local Ollama instance (default: http://localhost:11434/v1)
-            model_name: The name of the Llama model to use (default: llama2)
+            model_name: The name of the Llama model to use (default: qwen3-vl:8b)
                        Available models: llama2, neural-chat, mistral, etc.
                        Make sure the model is pulled in Ollama: `ollama pull <model_name>`
         """
