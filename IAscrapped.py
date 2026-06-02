@@ -25,14 +25,41 @@ class JobDescriptionWriter:
     def compose_presentation_letter(self, description):
         """
         Generate a personalized cover letter based on job description.
+        MUST BE HONEST - reference only actual work, projects, and metrics from Patrick's CV.
+        NO EXAGGERATION. NO FABRICATION. SPECIFIC EXAMPLES ONLY.
         """
         cv = self.read_cv()
         print(cv)
         completion = self.client.chat.completions.create(
             model=self.model_name,
             messages=[
-                {"role": "system", "content": "You are an eloquent writer with skills to write excellent and persuasive texts. (MAXIMUM 50 WORDS.)"},
-                {"role": "user", "content": f"You are a human resource expert responsible for creating presentation letters tailored to specific job descriptions. Your task is to generate a presentation letter based on the following job description:\n\n{description}\n\nJob description: {description}"}
+                {
+                    "role": "system", 
+                    "content": """You write honest, direct cover letters. RULES:
+1. Reference ONLY actual projects and metrics from the CV provided
+2. Use specific names: Singularity, ScrollStudio3D, AURELIAN, Motif, Pat's Pools, Leslie's Pool
+3. Use actual numbers: 15% revenue increase, 8% shrink reduction, 20% defect reduction, 90+ weekly services
+4. Use real technologies: GSAP, Three.js, WebGL, React, Node.js
+5. NO corporate jargon like "innovative," "passionate," "cutting-edge"
+6. 3 paragraphs MAX
+7. Story-driven, specific to the job
+8. Direct tone - no fluff
+9. Address what Patrick can SOLVE for them, not generic promises
+10. If job doesn't fit Patrick's actual profile, say so honestly
+NEVER exaggerate. NEVER fabricate. NEVER claim skills not in the CV."""
+                },
+                {
+                    "role": "user", 
+                    "content": f"""CV:
+{cv}
+
+JOB DESCRIPTION:
+{description}
+
+Write a cover letter for Patrick applying to this role.
+Be honest. Reference real work only. Use specific examples.
+Maximum 3 paragraphs."""
+                }
             ],
             temperature=0.7,
             top_p=0.9
@@ -47,7 +74,7 @@ class JobDescriptionWriter:
             model=self.model_name,
             messages=[
                 {"role": "system", "content": "You are a Human resources Manager that analyze CVs for jobs requests.(MAXIMUM 50 WORDS.)"},
-                {"role": "user", "content": f"You are a highly experienced human resource manager responsible for evaluating and analyzing CVs for various job positions. Today, you have been assigned to evaluate a CV for the following job description:\n\n{description}\n\nCV:\n{cv}\n\nProvide feedback on how well the CV matches the job requirements."}
+                {"role": "user", "content": f"You are a highly experienced human resource manager responsible for evaluating and analyzing CVs for various job positions. Today, you have been assig[...]"}
             ],
             temperature=0.7,
             top_p=0.9
